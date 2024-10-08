@@ -40,16 +40,28 @@ app.get("/", (req, res) => {
 
 
 // database connection
-const db_connect = async () => {
-    try {
-        await mongoose.connect(process.env.MONGO_DB_URL);
-        console.log("Connected to MongoDB");
-    } catch (error) {
-        throw error;
-    }
-}
+// const db_connect = async () => {
+//     try {
+//         await mongoose.connect(process.env.MONGO_DB_URL);
+//         console.log("Connected to MongoDB");
+//     } catch (error) {
+//         throw error;
+//     }
+// }
+
+
+
+const uri = "mongodb+srv://MongoDB:password123456@cluster0.qqweg.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0/";
+mongoose.connect(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
+    .then(() => {
+        console.log("MongoDB Connected…")
+    })
+    .catch(err => console.log(err))
 
 app.listen(8090, () => {
-    db_connect()
+    // db_connect()
     console.log(`server started in http://localhost:8090`);
 });
